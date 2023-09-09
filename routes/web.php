@@ -24,7 +24,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::prefix('/content')->name('content.')->group(function(){
+Route::middleware(['auth'])->prefix('/content')->name('content.')->group(function(){
     Route::get('/', Index::class)->name('index'); // content.index
     Route::get('/create', Create::class)->name('create');
     
