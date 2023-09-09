@@ -3,15 +3,23 @@
 namespace App\Http\Livewire\Content;
 
 use App\Models\Content;
-use Livewire\Component;
+use Illuminate\Support\Facades\Storage;
+use Livewire\{Component, WithFileUploads};
 
 class Edit extends Component
 {
+    use WithFileUploads;
+
     public $content;
+    public $body;
+    public $cover;
 
     public $rules = [
         'content.title' => 'required',
-        'content.body' => 'required|min:10'
+        'content.body' => 'required|min:10',
+        'content.description' => 'required',
+        'content.type' => 'required',
+        'cover' => 'nullable|image'
     ];
 
     public function mount(Content $content)
@@ -22,11 +30,20 @@ class Edit extends Component
     public function editContent()
     {
         $this->validate();
-        
-        if(!$this->content->save()){
+
+        if ($this->cover) {
+            Storage::disk('public')->delete('cover', 'public');
+        }
+
+        $this->content->cover = $this->cover
+            ? $this->cover->store('cover', 'public')
+            : $this->content->cover;
+
+
+        if (!$this->content->save()) {
             session()->flash('error', 'Erro ao editar conteúdo...');
         }
-        
+
         session()->flash('success', 'Conteúdo editado com sucesso!');
     }
 

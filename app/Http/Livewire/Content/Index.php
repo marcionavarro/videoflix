@@ -12,7 +12,7 @@ class Index extends Component
     
     public function render()
     {
-        $contents = Content::paginate(5);
+        $contents = Content::orderBy('id', 'desc')->paginate(5);
         return view('livewire.content.index', compact('contents'));
     }
 }
