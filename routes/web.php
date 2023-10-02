@@ -3,6 +3,7 @@
 use App\Http\Livewire\Content\Create;
 use App\Http\Livewire\Content\Edit;
 use App\Http\Livewire\Content\Index;
+use App\Http\Livewire\Content\VideoCreate;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,8 +28,10 @@ Route::get('/dashboard', function () {
 Route::middleware(['auth'])->prefix('/content')->name('content.')->group(function(){
     Route::get('/', Index::class)->name('index'); // content.index
     Route::get('/create', Create::class)->name('create');
-    
+
     Route::get('/{content}', Edit::class)->name('edit');
+
+    Route::get('/{content}/videos/create', VideoCreate::class)->name('video.create');
 });
 
 require __DIR__.'/auth.php';
