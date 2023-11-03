@@ -18,6 +18,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    \App\Jobs\Test\TestJob::dispatch();
+    \App\Jobs\Test\PushJob::dispatch()->onQueue('deploy');
+    \App\Jobs\Test\DeployJob::dispatch()->onQueue('deploy');
+
     return view('welcome');
 });
 

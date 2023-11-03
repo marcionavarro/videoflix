@@ -24,11 +24,12 @@ class VideoFactory extends Factory
         $name = $this->faker->word;
 
         return [
+            'code' => $this->faker->uuid(),
             'name' => $name,
             'description' => $this->faker->sentence,
             'slug' => \Illuminate\Support\Str::slug($name),
             'video' => 'video.m3ua',
-            'thumb' => $this->faker->imageUrl(640, 480)
+            'thumb' => $this->faker->imageUrl(640, 480),
         ];
     }
 }
