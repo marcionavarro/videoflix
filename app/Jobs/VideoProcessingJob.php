@@ -2,6 +2,9 @@
 
 namespace App\Jobs;
 
+use App\Models\User;
+use App\Notifications\VideoProcessedNotification;
+use App\Notifications\WhenVideoProcessingHasFailedNotification;
 use \FFMpeg;
 use FFMpeg\Format\Video\X264;
 use Illuminate\Bus\Queueable;
@@ -16,8 +19,6 @@ class VideoProcessingJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-//    public $tries = 2;
-//    public $backoff= 5;
     private $video;
 
     /**
@@ -69,5 +70,15 @@ class VideoProcessingJob implements ShouldQueue
                 'is_processed' => true
             ]
         );
+
+        // Notificar o sucesso do processamento...
+        $user = User::first(); // To-DO: Pegar os usuarios com paple ADMIN
+        $user->notify(new VideoProcessedNotification($this->video));
+    }
+
+    public function failed(\Throwable $exception = null)
+    {
+        $user = User::first(); // To-DO: Pegar os usuarios com paple ADMIN
+        $user->notify(new WhenVideoProcessingHasFailedNotification($this->video, $exception));
     }
 }
