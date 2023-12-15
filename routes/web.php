@@ -9,7 +9,12 @@ use App\Http\Livewire\Content\Video\ListVideo;
 use App\Http\Livewire\Content\VideoCreate;
 use App\Http\Livewire\Notification;
 use App\Http\Livewire\Player;
+use App\Models\Comment;
+use App\Models\Content;
+use App\Models\Image;
+use App\Models\Tag;
 use App\Models\User;
+use App\Models\Video;
 use App\Notifications\VideoProcessedNotification;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -83,5 +88,64 @@ Route::get(
 //    $user->notify(new VideoProcessedNotification());
 //    dd($user->unReadNotifications->first()->markAsRead());
         dd($user->unReadNotifications()->where('id', '4021a22f-babd-45fe-ab70-d9818d774e04')->first());
+    }
+);
+
+Route::get(
+    '/morphs',
+    function () {
+        // Morphs 1 to 1
+        // Find User
+        //$user = User::find(1);
+
+        // Find Content
+        // $content = Content::find(10);
+        // return $content->image;
+
+        // Saving the morphOne relation
+        // $content->image()->create(['image' => 'image-' . rand(1, 30000)]);
+
+        // Searching a image morphs
+        //$image = Image::find(2);
+
+        //return $image->imageable;
+
+        // Morphs 1 to Many
+        // Find Content
+//        $content = Content::find(10);
+//        $content->comments()->create(['comment' => 'Testando comentário...']);
+
+//        $video = Video::find(10);
+//        $video->comments()->create(['comment' => 'Testando comentário v...']);
+
+//        return Comment::first()->commentable;
+//        return $video->comments;
+
+
+        // Many To Many Morphs
+
+        $tagsCreate = [
+            ['tag' => 'acao'],
+            ['tag' => 'aventura'],
+            ['tag' => 'terror'],
+            ['tag' => 'documentarios'],
+            ['tag' => 'romance'],
+            ['tag' => 'suspense'],
+        ];
+
+        // Tag::createMany($tagsCreate);
+
+         /*$model = Video::find(10);
+         $model->tags()->createMany($tagsCreate);*/
+
+         /*$model = Content::find(10);
+         $model->tags()->sync([1,2,3,4]);*/
+
+        $model = Tag::find(1);
+        // $model->videos()->sync([1,2,3,4]);
+
+//        return $model->tags;
+//        return $model->videos;
+        return $model->contents;
     }
 );
