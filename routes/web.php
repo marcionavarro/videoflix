@@ -61,7 +61,16 @@ Route::middleware(['auth'])->prefix('/content')->name('content.')->group(
     }
 );
 
-Route::get('/watch/{video:code}', Player::class)->middleware('auth')->name('video.player');
+//Route::get('/watch/{video:code}', Player::class)->middleware('auth')->name('video.player');
+
+Route::get('/watch/{content:slug}', \App\Http\Livewire\Player::class)
+    ->middleware('auth')
+    ->name('video.player');
+
+Route::middleware(['auth'])->prefix('my-contents')->name('my-content.')->group(function () {
+    Route::get('/', \App\Http\Livewire\Contents::class)->name('main');
+
+});
 
 Route::get(
     'resources/{code}/{video}',
@@ -135,11 +144,11 @@ Route::get(
 
         // Tag::createMany($tagsCreate);
 
-         /*$model = Video::find(10);
-         $model->tags()->createMany($tagsCreate);*/
+        /*$model = Video::find(10);
+        $model->tags()->createMany($tagsCreate);*/
 
-         /*$model = Content::find(10);
-         $model->tags()->sync([1,2,3,4]);*/
+        /*$model = Content::find(10);
+        $model->tags()->sync([1,2,3,4]);*/
 
         $model = Tag::find(1);
         // $model->videos()->sync([1,2,3,4]);

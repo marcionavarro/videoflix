@@ -185,3 +185,8 @@ Route::get(
     }
 );
 ````
+### 276 - Criando Conteúdos pro Usuário  
+
+`` php artisan make:livewire Contents ``
+
+(Arquivos de Ajuda)[https://gist.github.com/NandoKstroNet/2082dd3bbcc6e568adf333f40bee159e]
