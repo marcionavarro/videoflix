@@ -21,8 +21,8 @@
     @stack('head')
 </head>
 
-<body class="font-sans antialiased">
-<div class="bg-gray-100">
+<body class="font-sans antialiased bg-black">
+<div class="bg-black">
 
     <main>
         {{ $slot }}

@@ -104,7 +104,7 @@ Route::get(
 Criar Model Tag  
 `php artisan make:model Tag -m`
 
-Criar a tabela intemediária - Ligando tags, videos e conteudos.
+Criar a tabela intemediária - Ligando tags, videos e conteudos.  
 `php artisan make:migration create_taggable_table`  
 
 migrations tags  
@@ -189,4 +189,8 @@ Route::get(
 
 `` php artisan make:livewire Contents ``
 
-(Arquivos de Ajuda)[https://gist.github.com/NandoKstroNet/2082dd3bbcc6e568adf333f40bee159e]
+[Arquivos de Ajuda](https://gist.github.com/NandoKstroNet/2082dd3bbcc6e568adf333f40bee159e)
+
+### 277 - Modifições no Player do Projeto
+
+[Link códigos incrementos player](https://gist.github.com/NandoKstroNet/07f1cc7086fe77832a54343101896226)

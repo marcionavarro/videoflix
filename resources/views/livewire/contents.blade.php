@@ -18,4 +18,8 @@
             </div>
         @endforeach
     </div>
+
+    <div class="w-full mt-10">
+        {{ $contents->links()  }}
+    </div>
 </div>

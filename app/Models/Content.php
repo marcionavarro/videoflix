@@ -13,7 +13,9 @@ class Content extends Model
 
     public function videos()
     {
-        return $this->hasMany(Video::class);
+        return $this->hasMany(Video::class)
+            ->whereNotNull('code')
+            ->whereNotNull('processed_video');
     }
 
     public function image()
