@@ -194,3 +194,16 @@ Route::get(
 ### 277 - Modifições no Player do Projeto
 
 [Link códigos incrementos player](https://gist.github.com/NandoKstroNet/07f1cc7086fe77832a54343101896226)
+
+### 278 - Componente Criar Comentários
+
+`php artisan make:livewire Comments/Create`
+
+`php artisan make:livewire Comments/Comments`
+
+`php artisan make:livewire Comments/Comment`
+
+[Link camanda de view componente Criar Comentário](https://gist.github.com/NandoKstroNet/207699908f1d794fff581bd3acdff553)
+
+### 279 - Iniciando Save de Comentário
+
