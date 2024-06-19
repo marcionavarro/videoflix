@@ -9,6 +9,7 @@ use App\Http\Livewire\Content\Video\ListVideo;
 use App\Http\Livewire\Content\VideoCreate;
 use App\Http\Livewire\Notification;
 use App\Http\Livewire\Player;
+use App\Http\Livewire\Subscriptions\Checkout;
 use App\Models\Comment;
 use App\Models\Content;
 use App\Models\Image;
@@ -61,9 +62,9 @@ Route::middleware(['auth'])->prefix('/content')->name('content.')->group(
     }
 );
 
-//Route::get('/watch/{video:code}', Player::class)->middleware('auth')->name('video.player');
+Route::get('/subscriptions/checkout', Checkout::class)->name('subscriptions.checkout');
 
-Route::get('/watch/{content:slug}', \App\Http\Livewire\Player::class)
+Route::get('/watch/{content:slug}', Player::class)
     ->middleware('auth')
     ->name('video.player');
 
