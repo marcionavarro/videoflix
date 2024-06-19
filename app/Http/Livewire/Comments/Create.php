@@ -14,6 +14,8 @@ class Create extends Component
         'comment' => 'required'
     ];
 
+    protected $listeners = ['changeVideoId'];
+
     public function mount(Video $video)
     {
         $this->video = $video;
@@ -21,7 +23,6 @@ class Create extends Component
 
     public function createComment()
     {
-        dd($this->video);
         $this->validate();
 
         $comment = [
@@ -30,7 +31,14 @@ class Create extends Component
         ];
 
         $this->video->comments()->create($comment);
+
         session()->flash('success', 'Comentário criado com sucesso!');
+        $this->reset('comment');
+    }
+
+    public function changeVideoId(Video $video)
+    {
+        $this->video = $video;
     }
 
     public function render()

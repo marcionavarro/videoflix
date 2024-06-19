@@ -8,7 +8,7 @@
     <div id="player" class="mt-14 ml-10" wire:ignore></div>
 
     <div>
-        <livewire:comments.create :video="$videoId" />
+        <livewire:comments.create :video="$videoId"/>
     </div>
 
     <div class="fixed w-80 h-full top-0 right-0 bg-black border-l border-gray-900">
@@ -16,7 +16,8 @@
         <ul>
             @foreach($videos as $video)
                 <li class="block text-white">
-                    <a href="#" data-videoid="{{$video['id']}}" data-code="{{$video['code']}}" data-video="{{$video['processed_video']}}"
+                    <a href="#" data-videoid="{{$video['id']}}" data-code="{{$video['code']}}"
+                       data-video="{{$video['processed_video']}}"
                        class="linkVideo block px-4 py-4 border-b border-gray-900 hover:bg-white hover:text-black transition duration-300 ease-in-out">
                         {{$video['name']}}
                     </a>
@@ -49,9 +50,12 @@
                 let linkVideos = document.querySelectorAll('a.linkVideo');
                 linkVideos.forEach(el => {
                     el.addEventListener('click', event => {
-                        console.log(event);
                         event.preventDefault();
-                        @this.videoId = event.target.dataset.videoid;
+
+                     // Modifica o valor da propriedade videoId do componente PHP Player
+                    //@this.videoId = event.target.dataset.videoid;
+
+                    Livewire.emit('changeVideoId', event.target.dataset.videoid);
                         player.load(`/resources/${event.target.dataset.code}/${event.target.dataset.video}`);
                     })
                 });

@@ -13,5 +13,9 @@
             </div>
             <button class="px-4 py-2 text-white font-bold bg-green-800 rounded">Criar</button>
         </form>
+
+        <div class="w-full">
+            <livewire:comments.comments :video="$video"/>
+        </div>
     </div>
 </div>
