@@ -34,3 +34,6 @@ CASHIER_LOGGER=stack
 Numero do Cartão de crédito Teste
 
 `4111 1111 1111 1111 1230 123 65056`
+
+### 292 - Usuário Autenticado e Controle Assinatura
+`php artisan make:middleware CheckIfUserHasAnActiveSubscription`

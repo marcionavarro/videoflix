@@ -19,10 +19,10 @@
         <div id="card-element" class="border border-gray-500 px-8 py-4 rounded"></div>
 
         <button id="card-button"
-                class="px-4 py-2 border border-green-800 bg-green-600 rounded text-white font-bold mt-10">
+                class="px-4 py-2 border border-green-800 bg-green-600 rounded text-white font-bold mt-10"
+                data-secret="{{ $intent->client_secret  }}">
             Realizar Assinatura
         </button>
-
     </div>
 
     @push('scripts')
@@ -33,23 +33,29 @@
                 '{{config('cashier.key')}}'
             );
             const elements = stripe.elements();
+
             const cardElement = elements.create('card');
             cardElement.mount('#card-element');
+
             const cardHolderName = document.getElementById('card-holder-name');
             const cardButton = document.getElementById('card-button');
+            const clientSecret = cardButton.dataset.secret;
+
             cardButton.addEventListener('click', async (e) => {
-                const {paymentMethod, error} = await stripe.createPaymentMethod(
-                    'card', cardElement, {
-                        billing_details: {name: cardHolderName.value}
+                const {setupIntent, error} = await stripe.confirmCardSetup(
+                    clientSecret, {
+                        payment_method: {
+                            card: cardElement,
+                            billing_details: {name: cardHolderName.value}
+                        }
                     }
                 );
-                console.log('ERROR: ', error)
-                console.log('paymentMethod: ', paymentMethod)
+
                 if (error) {
                     document.querySelector('div#message').classList.remove('hidden')
                     document.querySelector('span#message-feedback').textContent = error.message
                 } else {
-                    Livewire.emit('charge', paymentMethod.id)
+                    Livewire.emit('charge', setupIntent.payment_method)
                 }
             });
         </script>

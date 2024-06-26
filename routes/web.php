@@ -62,16 +62,19 @@ Route::middleware(['auth'])->prefix('/content')->name('content.')->group(
     }
 );
 
-Route::get('/subscriptions/checkout', Checkout::class)->name('subscriptions.checkout');
+Route::get('/subscriptions/checkout', Checkout::class)
+    ->name('subscriptions.checkout')
+    ->middleware('auth');
+
+Route::middleware(['auth', 'user.active.subscription'])->prefix('my-contents')
+    ->name('my-content.')->group(function () {
+    Route::get('/', \App\Http\Livewire\Contents::class)->name('main');
+});
 
 Route::get('/watch/{content:slug}', Player::class)
-    ->middleware('auth')
+    ->middleware('auth', 'user.active.subscription')
     ->name('video.player');
 
-Route::middleware(['auth'])->prefix('my-contents')->name('my-content.')->group(function () {
-    Route::get('/', \App\Http\Livewire\Contents::class)->name('main');
-
-});
 
 Route::get(
     'resources/{code}/{video}',
@@ -87,7 +90,7 @@ Route::get(
                 ]
             );
     }
-)->middleware('auth');
+)->middleware('auth', 'user.active.subscription');
 
 require __DIR__ . '/auth.php';
 
