@@ -18,15 +18,17 @@ class CreateContentsTable extends Migration
 
             $table->string('title');
             $table->string('description')->nullable();
-            
+
             $table->text('body');
             $table->integer('type'); // 1 - filme ou 2 - serie
-            
+
             $table->string('cover')->nullable();
             $table->string('slug');
-            
+
+           // $table->boolean('is_active')->default(false);
+
             $table->timestamps();
-            
+
         });
     }
 

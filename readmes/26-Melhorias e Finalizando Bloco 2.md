@@ -25,3 +25,10 @@ para o php não ficar indexando esta pasta
 [GIST componenete Progresso Processamento Vídeo](https://gist.github.com/NandoKstroNet/9451d414197595258f6e34b76d4ea2cd)
 
 `php artisan make:livewire Content/Video/SingleVideoProcessedProgress`
+
+### 305 - Aplicando Controle ao Admin
+`php artisan make:migration alter_users_table_add_collumn_role --table=user`
+
+`php artisan migrate`
+
+`php artisan make:middleware CheckIfUserIsAnAdmin`

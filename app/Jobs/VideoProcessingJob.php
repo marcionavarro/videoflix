@@ -14,6 +14,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Video;
+use Illuminate\Support\Facades\Storage;
 
 class VideoProcessingJob implements ShouldQueue
 {
@@ -71,14 +72,21 @@ class VideoProcessingJob implements ShouldQueue
             ]
         );
 
+        Storage::disk('videos')->delete($video);
+
         // Notificar o sucesso do processamento...
-        $user = User::first(); // To-DO: Pegar os usuarios com paple ADMIN
-        $user->notify(new VideoProcessedNotification($this->video));
+        $usersAdmin = $this->getAdminUsers();
+        $usersAdmin->each->notify(new VideoProcessedNotification($this->video));
     }
 
     public function failed(\Throwable $exception = null)
     {
-        $user = User::first(); // To-DO: Pegar os usuarios com paple ADMIN
-        $user->notify(new WhenVideoProcessingHasFailedNotification($this->video, $exception));
+        $usersAdmin = $this->getAdminUsers();
+        $usersAdmin->each->notify(new WhenVideoProcessingHasFailedNotification($this->video, $exception));
+    }
+
+    private function getAdminUsers()
+    {
+        return User::whereRole('ROLE_ADMIN')->get(); // retornado uma collection de users model
     }
 }

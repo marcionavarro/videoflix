@@ -47,11 +47,14 @@ Route::get(
     function () {
         return view('dashboard');
     }
-)->middleware(['auth'])->name('dashboard');
+)->middleware(['auth', 'user.is.admin'])
+    ->name('dashboard');
 
-Route::get('notifications', Notification::class)->middleware('auth')->name('notifications');
+Route::get('notifications', Notification::class)
+    ->middleware(['auth', 'user.is.admin'])
+    ->name('notifications');
 
-Route::middleware(['auth'])->prefix('/content')->name('content.')->group(
+Route::middleware(['auth', 'user.is.admin'])->prefix('/content')->name('content.')->group(
     function () {
         Route::get('/', Index::class)->name('index'); // content.index
         Route::get('/create', Create::class)->name('create');
@@ -67,9 +70,11 @@ Route::get('/subscriptions/checkout', Checkout::class)
     ->middleware('auth');
 
 Route::middleware(['auth', 'user.active.subscription'])->prefix('my-contents')
-    ->name('my-content.')->group(function () {
-    Route::get('/', \App\Http\Livewire\Contents::class)->name('main');
-});
+    ->name('my-content.')
+    ->group(function () {
+        Route::get('/', \App\Http\Livewire\Contents::class)
+            ->name('main');
+    });
 
 Route::get('/watch/{content:slug}', Player::class)
     ->middleware('auth', 'user.active.subscription')
