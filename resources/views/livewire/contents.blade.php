@@ -1,5 +1,4 @@
 <div class="max-w-7xl mx-auto mt-10 py-6 px-4 sm:px-6 lg:px-8">
-
     <div class="grid grid-cols-3 gap-0.5">
         @foreach($contents as $content)
             <div class="w-96 mb-8 bg-gray-900 rounded shadow-lg hover:p-4">

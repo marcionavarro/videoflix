@@ -3,17 +3,24 @@
     <x-slot name="header">Editar Conteúdo</x-slot>
 
     @if(session()->has('success'))
-    <div class="w-full px-2 py-4 border border-green-500 bg-green-400 text-white rounded mb-10">
-        {{session('success')}}
-    </div>
+        <div class="w-full px-2 py-4 border border-green-500 bg-green-400 text-white rounded mb-10">
+            {{session('success')}}
+        </div>
     @endif
+
+    <div class="w-full flex justify-end">
+        <a href="{{route('content.video.list', $content)}}"
+           class="border border-blue-800 bg-blue-600 text-white px-2 py-1 rounded">
+            Editar Vídeos
+        </a>
+    </div>
 
     <form action="" wire:submit.prevent="editContent">
 
         <div class="mb-5">
             <label class="block">Titulo</label>
             <input type="text" wire:model.defer="content.title"
-                class="w-full @error('content.title') border-red-700 @enderror">
+                   class="w-full @error('content.title') border-red-700 @enderror">
 
             @error('content.title')
             <strong class="block mt-4 text-red-700 font-bold">{{$message}}</strong>
@@ -23,7 +30,7 @@
         <div class="mb-5">
             <label class="block">Descrição</label>
             <input type="text" wire:model.defer="content.description"
-                class="w-full @error('content.description') border-red-700 @enderror">
+                   class="w-full @error('content.description') border-red-700 @enderror">
 
             @error('content.description')
             <strong class="block mt-4 text-red-700 font-bold">{{$message}}</strong>
@@ -33,7 +40,7 @@
         <div class="mb-5">
             <label class="block">Conteúdo</label>
             <textarea wire:model.defer="content.body"
-                class="w-full @error('content.body') border-red-700 @enderror"></textarea>
+                      class="w-full @error('content.body') border-red-700 @enderror"></textarea>
 
             @error('content.body')
             <strong class="block mt-4 text-red-700 font-bold">{{$message}}</strong>
@@ -67,9 +74,9 @@
             </div>
             <div class="w-2/3 ml-7">
                 @if($cover)
-                <img src="{{ $cover->temporaryUrl() }}" alt="Capa do Conteúdo {{$content->title}}">
+                    <img src="{{ $cover->temporaryUrl() }}" alt="Capa do Conteúdo {{$content->title}}">
                 @else
-                <img src="{{ asset('storage/' . $content->cover) }}" alt="Capa do Conteúdo {{$content->title}}">
+                    <img src="{{ asset('storage/' . $content->cover) }}" alt="Capa do Conteúdo {{$content->title}}">
                 @endif
             </div>
         </div>

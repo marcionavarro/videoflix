@@ -8,3 +8,20 @@
 
 ### 297 - Favoritando Conteúdo
 `php artisan migrate`
+
+### 301 - Adicionando Link Videos Conteúdo
+`php artisan queue:work`
+
+### 302 - Atualizando Componente Icone Notificações
+`php artisan make:livewire NotificationIcon`
+
+
+Verifica em storage app  
+no phpstorm clique com o botão direito -> Mark Directory as -> Exclusion  
+para o php não ficar indexando esta pasta
+
+### 303 - Falando sobre Wire Poll
+
+[GIST componenete Progresso Processamento Vídeo](https://gist.github.com/NandoKstroNet/9451d414197595258f6e34b76d4ea2cd)
+
+`php artisan make:livewire Content/Video/SingleVideoProcessedProgress`

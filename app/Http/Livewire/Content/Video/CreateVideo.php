@@ -38,12 +38,12 @@ class CreateVideo extends Component
                 'thumb' => 'image.png',
                 'code' => Uuid::uuid4()
             ];
+
+            $video = $this->content->videos()->create($video);
+
+            CreateThumbFromAvideoJob::dispatch($video);
+            VideoProcessingJob::dispatch($video);
         }
-
-        $video = $this->content->videos()->create($video);
-
-        CreateThumbFromAvideoJob::dispatch($video);
-        VideoProcessingJob::dispatch($video);
 
         return redirect()->route('content.video.list', $this->content);
     }
