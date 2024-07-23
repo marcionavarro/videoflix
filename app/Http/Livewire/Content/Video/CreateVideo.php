@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Content\Video;
 use App\Jobs\CreateThumbFromAvideoJob;
 use App\Jobs\VideoProcessingJob;
 use App\Models\Content;
+use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -30,6 +31,9 @@ class CreateVideo extends Component
     {
         $videoUploadedFile = $this->videos;
 
+        $makeThumbVideoJobs = [];
+        $processVideoJobs = [];
+
         foreach ($videoUploadedFile as $videoUploaded) {
             $video = [
                 'name' => $videoUploaded->getClientOriginalName(),
@@ -41,9 +45,12 @@ class CreateVideo extends Component
 
             $video = $this->content->videos()->create($video);
 
-            CreateThumbFromAvideoJob::dispatch($video);
-            VideoProcessingJob::dispatch($video);
+            $makeThumbVideoJobs[] = new CreateThumbFromAvideoJob($video);
+            $processVideoJobs[] = new VideoProcessingJob($video);
         }
+
+        Bus::batch($makeThumbVideoJobs)->allowFailures()->dispatch();
+        Bus::batch($processVideoJobs)->allowFailures()->dispatch();
 
         return redirect()->route('content.video.list', $this->content);
     }

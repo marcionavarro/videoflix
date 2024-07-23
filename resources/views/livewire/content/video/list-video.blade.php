@@ -25,7 +25,7 @@
             <div class="flex flex-col justify-center pl-20">
                 <h3>{{$video->name}}</h3>
                 @if(!$video->is_processed && $video->progress > 0)
-                    @livewire('content.video.single-video-processed-progress', ['video' => $video->id])
+                    @livewire('content.video.single-video-processed-progress', ['video' => $video->id], key($video->id))
                 @endif
             </div>
 

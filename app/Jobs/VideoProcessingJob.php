@@ -7,6 +7,7 @@ use App\Notifications\VideoProcessedNotification;
 use App\Notifications\WhenVideoProcessingHasFailedNotification;
 use \FFMpeg;
 use FFMpeg\Format\Video\X264;
+use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -18,7 +19,7 @@ use Illuminate\Support\Facades\Storage;
 
 class VideoProcessingJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Batchable, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $video;
 
