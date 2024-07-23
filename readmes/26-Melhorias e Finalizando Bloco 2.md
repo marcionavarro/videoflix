@@ -32,3 +32,23 @@ para o php não ficar indexando esta pasta
 `php artisan migrate`
 
 `php artisan make:middleware CheckIfUserIsAnAdmin`
+
+### 310 - Agrupando Filmes e Séries
+
+`php artisan tinker`
+
+`\App\Models\Content::all()`
+
+`\App\Models\Content::all()->groupBy('type')`
+
+GIST código view componente Meus Conteúdos: [clique aqui](https://gist.github.com/NandoKstroNet/d3027be2e2dda49bd2ef4c6456b78473).
+
+### 311 - Fila em Cadeia
+
+`php artisan make:job Order/ProcessingOrder`
+
+`php artisan make:job Order/MakePaymentOrder`
+
+`php artisan make:job Order/NotifyUserAboutPaymentOrder`
+
+`php artisan queue:work`

@@ -167,3 +167,15 @@ Route::get(
         return $model->contents;
     }
 );
+
+Route::get('filas-chain', function () {
+    \Illuminate\Support\Facades\Bus::chain([
+        new \App\Jobs\Order\ProcessingOrder(),
+        new \App\Jobs\Order\MakePaymentOrder(),
+        new \App\Jobs\Order\NotifyUserAboutPaymentOrder()
+    ])
+        ->catch(function (Throwable $e) {
+            dd($e->getMessage());
+        })
+        ->dispatch();
+});
