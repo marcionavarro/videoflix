@@ -7,9 +7,11 @@ use App\Http\Livewire\Content\Video\CreateVideo;
 use App\Http\Livewire\Content\Video\EditVideo;
 use App\Http\Livewire\Content\Video\ListVideo;
 use App\Http\Livewire\Content\VideoCreate;
+use App\Http\Livewire\Contents;
 use App\Http\Livewire\Notification;
 use App\Http\Livewire\Player;
 use App\Http\Livewire\Subscriptions\Checkout;
+use App\Http\Livewire\Subscriptions\CustomerSubscription;
 use App\Models\Comment;
 use App\Models\Content;
 use App\Models\Image;
@@ -69,10 +71,25 @@ Route::get('/subscriptions/checkout', Checkout::class)
     ->name('subscriptions.checkout')
     ->middleware('auth');
 
+Route::get('subscriptions/my-subscription', CustomerSubscription::class)
+    ->name('subscriptions.my-subscription')
+    ->middleware('auth');
+
+Route::get('subscriptions/my-subscription/invoice/{invoiceId}', function ($invoiceId) {
+
+    return auth()->user()->downloadInvoice($invoiceId, [
+        'vendor' => 'VIDEO_FLIX',
+        'product' => 'Assinatura VideoFlix',
+    ]);
+
+})
+    ->name('subscriptions.my-subscription.invoice')
+    ->middleware('auth');
+
 Route::middleware(['auth', 'user.active.subscription'])->prefix('my-contents')
     ->name('my-content.')
     ->group(function () {
-        Route::get('/', \App\Http\Livewire\Contents::class)
+        Route::get('/', Contents::class)
             ->name('main');
     });
 

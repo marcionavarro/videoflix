@@ -63,5 +63,21 @@ GIST código view componente Meus Conteúdos: [clique aqui](https://gist.github.
 
 ### 316 - Área Minha Assinatura
 
+`php artisan make:livewire Subscriptions/CustomerSubscription`
+
+`php artisan make:livewire Subscriptions/Customer/CancelSubscription`
+
 GIST Componente Customer Subscription [clique aqui](https://gist.github.com/NandoKstroNet/d4a9c33aea473959e5bc63ec18801e72).  
 GIST Componente Cancel Subscription [clique aqui](https://gist.github.com/NandoKstroNet/0b72f84437055678f1aabcd3fd2ad954).
+
+
+### 318 - Detalhes na Dashboard Admin
+
+`php artisan make:livewire DashboardCounter`
+
+GIST com o Dashboard Counter [clique aqui](https://gist.github.com/NandoKstroNet/a5f9c444727db46a19feea5b999bbe74).
+
+
+### 319 - Conclusões
+
+GIST com a view Welcome modificada [clique aqui](https://gist.github.com/NandoKstroNet/d34fec6c195aecfe72c21c4ead7595e5).
